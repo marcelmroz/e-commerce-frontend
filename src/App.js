@@ -1,13 +1,12 @@
 import React from 'react';
 import RoutesComponent from './Routes';
+import './App.css';
 
 const App = () => {
   return (
-    <div>
-      <Header />
+    <>
       <RoutesComponent />
-      <Footer />
-    </div>
+    </>
   );
 };
 

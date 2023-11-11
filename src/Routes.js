@@ -1,23 +1,25 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ProductListPage from './pages/ProductListPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import CartPage from './pages/CartPage';
 import AdminPage from './pages/AdminPage';
+import CustomerAccountPage from './pages/CustomerAccountPage';
 
 const RoutesComponent = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductListPage />} />
         <Route path="/products/:id" element={<ProductDetailsPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/admin" element={<AdminPage />} />
-        {/* Define other routes as needed */}
+        <Route path="/account" element={<CustomerAccountPage />} />
+        {/* Other routes as needed */}
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 };
 
