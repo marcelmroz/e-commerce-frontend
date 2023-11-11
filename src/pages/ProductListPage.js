@@ -6,9 +6,17 @@ const ProductListPage = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('/api/products')
-      .then(response => response.json())
-      .then(data => setProducts(data))
+    fetch('http://localhost:8080/api/products')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Fetched products:', data);
+        setProducts(data);
+      })
       .catch(error => console.error('Error fetching products:', error));
   }, []);
 
