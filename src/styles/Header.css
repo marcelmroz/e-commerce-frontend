@@ -1,0 +1,29 @@
+.site-header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-content .logo {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .navigation .nav-link {
+    margin-left: 20px;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 4px;
+  }
+  
+  .navigation .nav-link:hover {
+    background-color: white;
+    color: #333;
+    transition: background-color 0.3s;
+  }
+  

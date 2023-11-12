@@ -6,6 +6,8 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import CartPage from './pages/CartPage';
 import AdminPage from './pages/AdminPage';
 import CustomerAccountPage from './pages/CustomerAccountPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 const RoutesComponent = () => {
   return (
@@ -17,7 +19,8 @@ const RoutesComponent = () => {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/account" element={<CustomerAccountPage />} />
-        {/* Other routes as needed */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </Router>
   );
