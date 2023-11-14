@@ -10,6 +10,7 @@ const Header = () => {
           <h1>My E-Commerce</h1>
         </Link>
         <nav className="navigation">
+          <Link to="/" className="nav-link">Home</Link>
           <Link to="/login" className="nav-link">Log In</Link>
           <Link to="/register" className="nav-link">Register</Link>
         </nav>
