@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/LoginPage.css';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you would usually send the username and password to the server for validation
-    console.log('Login with:', username, password);
-    // If login is successful, you can redirect to a different page using navigate
-    // navigate('/dashboard'); // for example
-  };
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch('http://localhost:8080/api/customers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+    const data = await response.json();
+    console.log('Login response:', data);
+    navigate('/');
+  } catch (error) {
+    console.error('Login failed:', error);
+  }
+};
 
   return (
     <div className="login-page">

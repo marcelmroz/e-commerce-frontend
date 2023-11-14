@@ -8,13 +8,28 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
 //   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you would handle the registration logic, often sending the data to a server
-    console.log('Register with:', username, email, password);
-    // After successful registration, you can redirect the user
-    // navigate('/login'); // for example
-  };
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch('http://localhost:8080/api/customers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
+    });
+    const data = await response.json();
+    console.log('Register response:', data);
+    // navigate('/login'); // Redirect to login after successful registration
+  } catch (error) {
+    console.error('Registration failed:', error);
+  }
+};
+
 
   return (
     <div className="register-page">
