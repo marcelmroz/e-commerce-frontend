@@ -2,43 +2,63 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LoginPage.css';
 
+
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  try {
-    const response = await fetch('http://localhost:8080/api/customers/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    });
-    const data = await response.json();
-    console.log('Login response:', data);
-    navigate('/');
-  } catch (error) {
-    console.error('Login failed:', error);
-  }
-};
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch('http://localhost:8080/api/customers/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          emailAddress: emailAddress,
+          password: password,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const contentType = response.headers.get('content-type');
+      let data;
+  
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        data = await response.text();
+      }
+
+      setShowPopup(true); 
+      setTimeout(() => {
+        setShowPopup(false);
+        navigate('/');
+      }, 2000); 
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
+  
 
   return (
     <div className="login-page">
+      {showPopup && <div className="login-popup">User logged in successfully!</div>}
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">Email:</label>
           <input
             type="text"
             id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={emailAddress}
+            onChange={(e) => setEmailAddress(e.target.value)}
           />
         </div>
         <div className="form-group">

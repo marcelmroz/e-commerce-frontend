@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/RegisterPage.css'; // Make sure to create the corresponding CSS file
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
 const handleSubmit = async (event) => {
   event.preventDefault();
@@ -24,7 +24,7 @@ const handleSubmit = async (event) => {
     });
     const data = await response.json();
     console.log('Register response:', data);
-    // navigate('/login'); // Redirect to login after successful registration
+    navigate('/login'); // Redirect to login after successful registration
   } catch (error) {
     console.error('Registration failed:', error);
   }
