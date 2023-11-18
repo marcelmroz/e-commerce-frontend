@@ -28,24 +28,22 @@ const LoginPage = () => {
       }
   
       const contentType = response.headers.get('content-type');
-      let data;
   
       if (contentType && contentType.includes('application/json')) {
-        data = await response.json();
+        await response.json();
       } else {
-        data = await response.text();
+        await response.text();
       }
 
       setShowPopup(true); 
       setTimeout(() => {
         setShowPopup(false);
-        navigate('/');
+        navigate('/account');
       }, 2000); 
     } catch (error) {
       console.error('Login failed:', error);
     }
   };
-  
 
   return (
     <div className="login-page">
