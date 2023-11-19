@@ -9,8 +9,7 @@ const HomePage = () => {
         <h1>Welcome to Our E-Commerce Site</h1>
         <p>Find the best products for all your needs</p>
         <Link to="/products" className="btn btn-primary">Shop Now</Link>
-      </section>
-            
+      </section>  
     </div>
   );
 };
