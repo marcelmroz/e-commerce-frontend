@@ -5,11 +5,13 @@ import '../styles/LoginPage.css';
 const LoginPage = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
-  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState(''); // General popup message for both success and error
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setPopupMessage('');
+
     try {
       const response = await fetch('http://localhost:8080/api/customers/login', {
         method: 'POST',
@@ -23,7 +25,7 @@ const LoginPage = () => {
       });
   
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error('Invalid email or password');
       }
   
       const contentType = response.headers.get('content-type');
@@ -34,19 +36,25 @@ const LoginPage = () => {
         await response.text();
       }
 
-      setShowPopup(true); 
+
+      setPopupMessage('User logged in successfully!');
       setTimeout(() => {
-        setShowPopup(false);
+        setPopupMessage('');
         navigate('/account');
       }, 2000); 
     } catch (error) {
       console.error('Login failed:', error);
+      setPopupMessage(error.message);
+      setPassword('');
+      setTimeout(() => setPopupMessage(''), 5000);
     }
   };
 
   return (
     <div className="login-page">
-      {showPopup && <div className="login-popup">User logged in successfully!</div>}
+      {popupMessage && <div className={`login-popup ${popupMessage.includes('Invalid') ? 'error' : ''}`}>
+        {popupMessage}
+      </div>}
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
