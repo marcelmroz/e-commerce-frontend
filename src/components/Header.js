@@ -20,7 +20,7 @@ const Header = () => {
         <nav className="navigation">
           <Link to="/" className="nav-link">Home</Link>
           {isLoggedIn ? (
-            <button onClick={handleLogout} className="nav-link">
+            <button onClick={handleLogout} className="nav-link header-btn">
               Logout
             </button>
           ) : (
