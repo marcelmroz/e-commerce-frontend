@@ -28,20 +28,24 @@ const LoginPage = () => {
         throw new Error('Invalid email or password');
       }
   
-      const contentType = response.headers.get('content-type');
+      // const contentType = response.headers.get('content-type');
   
-      if (contentType && contentType.includes('application/json')) {
-        await response.json();
-      } else {
-        await response.text();
-      }
+      // let result;
+      // if (contentType && contentType.includes('application/json')) {
+      //   result = await response.json();
+      // } else {
+      //   result = await response.text();
+      // }
 
+      const { userId, token } = await response.json();
+      sessionStorage.setItem('userId', userId);
+      sessionStorage.setItem('userToken', token);
 
       setPopupMessage('User logged in successfully!');
       setTimeout(() => {
         setPopupMessage('');
         navigate('/account');
-      }, 2000); 
+      }, 500); 
     } catch (error) {
       console.error('Login failed:', error);
       setPopupMessage(error.message);
