@@ -1,8 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 
 const Header = () => {
+  const navigate = useNavigate();
+  const isLoggedIn = sessionStorage.getItem('userToken') !== null;
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate('/');
+  };
+
   return (
     <header className="site-header">
       <div className="header-content">
@@ -11,8 +19,16 @@ const Header = () => {
         </Link>
         <nav className="navigation">
           <Link to="/" className="nav-link">Home</Link>
-          <Link to="/login" className="nav-link">Log In</Link>
-          <Link to="/register" className="nav-link">Register</Link>
+          {isLoggedIn ? (
+            <button onClick={handleLogout} className="nav-link">
+              Logout
+            </button>
+          ) : (
+            <>
+              <Link to="/login" className="nav-link">Log In</Link>
+              <Link to="/register" className="nav-link">Register</Link>
+            </>
+          )}
         </nav>
       </div>
     </header>
