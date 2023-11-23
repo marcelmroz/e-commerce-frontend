@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/marcelmroz/e-commerce-frontend/static/css/main.dbaa77d0.css",
+    "main.js": "/marcelmroz/e-commerce-frontend/static/js/main.56a88aa2.js",
+    "index.html": "/marcelmroz/e-commerce-frontend/index.html",
+    "main.dbaa77d0.css.map": "/marcelmroz/e-commerce-frontend/static/css/main.dbaa77d0.css.map",
+    "main.56a88aa2.js.map": "/marcelmroz/e-commerce-frontend/static/js/main.56a88aa2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dbaa77d0.css",
+    "static/js/main.56a88aa2.js"
+  ]
+}
