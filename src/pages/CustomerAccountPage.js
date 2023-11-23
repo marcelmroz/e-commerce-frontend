@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const CustomerAccountPage = () => {
-  const [customerData, setCustomerData] = useState(null);
+const [customerData, setCustomerData] = useState(null);
 
   useEffect(() => {
     const userId = sessionStorage.getItem('userId');
@@ -44,6 +44,8 @@ const CustomerAccountPage = () => {
       <p>Name: {customerData.firstName} {customerData.lastName}</p>
       <p>Email: {customerData.emailAddress}</p>
       <p>Phone: {customerData.phoneNumber}</p>
+      <p>Date of birth: {customerData.dateOfBirth}</p>
+
     </div>
   );
 };
