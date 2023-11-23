@@ -1,4 +1,3 @@
-.login-page,
 .register-page {
   max-width: 300px;
   margin: 50px auto;
@@ -36,9 +35,4 @@ button {
   cursor: pointer;
 }
 
-.header-btn{
-  color: transparent;
-  background-color: transparent;
-
-}
 

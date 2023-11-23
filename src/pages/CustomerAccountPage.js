@@ -35,7 +35,7 @@ const CustomerAccountPage = () => {
   }, []);
 
   if (!customerData) {
-    return <div>Loading user data...</div>;
+    return <div>First log in...</div>;
   }
 
   return (

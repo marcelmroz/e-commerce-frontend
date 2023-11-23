@@ -29,6 +29,7 @@ const Header = () => {
               <Link to="/register" className="nav-link">Register</Link>
             </>
           )}
+          <Link to="/account" className="nav-link">My account</Link>
         </nav>
       </div>
     </header>
