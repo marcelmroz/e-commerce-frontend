@@ -20,16 +20,16 @@ const Header = () => {
         <nav className="navigation">
           <Link to="/" className="nav-link">Home</Link>
           {isLoggedIn ? (
-            <button onClick={handleLogout} className="nav-link header-btn">
+            <button onClick={handleLogout} className="nav-link header-btn right">
               Logout
             </button>
           ) : (
             <>
-              <Link to="/login" className="nav-link">Log In</Link>
-              <Link to="/register" className="nav-link">Register</Link>
+              <Link to="/login" className="nav-link right">Log In</Link>
+              <Link to="/register" className="nav-link right">Register</Link>
             </>
           )}
-          <Link to="/account" className="nav-link">My account</Link>
+          <Link to="/account" className="nav-link right">My account</Link>
         </nav>
       </div>
     </header>

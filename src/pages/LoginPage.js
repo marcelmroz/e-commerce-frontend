@@ -5,7 +5,7 @@ import '../styles/LoginPage.css';
 const LoginPage = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
-  const [popupMessage, setPopupMessage] = useState(''); // General popup message for both success and error
+  const [popupMessage, setPopupMessage] = useState(''); // popup  for both success and error
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -27,15 +27,6 @@ const LoginPage = () => {
       if (!response.ok) {
         throw new Error('Invalid email or password');
       }
-  
-      // const contentType = response.headers.get('content-type');
-  
-      // let result;
-      // if (contentType && contentType.includes('application/json')) {
-      //   result = await response.json();
-      // } else {
-      //   result = await response.text();
-      // }
 
       const { userId, token } = await response.json();
       sessionStorage.setItem('userId', userId);
