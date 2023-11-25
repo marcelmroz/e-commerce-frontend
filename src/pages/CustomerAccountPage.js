@@ -34,6 +34,15 @@ const [customerData, setCustomerData] = useState(null);
     fetchCustomerData();
   }, []);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
+
   if (!customerData) {
     return <div>First log in...</div>;
   }
@@ -44,7 +53,7 @@ const [customerData, setCustomerData] = useState(null);
       <p>Name: {customerData.firstName} {customerData.lastName}</p>
       <p>Email: {customerData.emailAddress}</p>
       <p>Phone: {customerData.phoneNumber}</p>
-      <p>Date of birth: {customerData.dateOfBirth}</p>
+      <p>Date of birth: {formatDate(customerData.dateOfBirth)}</p>
 
     </div>
   );
