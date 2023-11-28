@@ -5,7 +5,7 @@ import '../styles/LoginPage.css';
 const LoginPage = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
-  const [popupMessage, setPopupMessage] = useState(''); // popup  for both success and error
+  const [popupMessage, setPopupMessage] = useState(''); // popup for both success and error
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {

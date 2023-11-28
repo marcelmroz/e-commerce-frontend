@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/CustomerAccountPage.css';
 
 const CustomerAccountPage = () => {
 const [customerData, setCustomerData] = useState(null);
@@ -48,14 +49,15 @@ const [customerData, setCustomerData] = useState(null);
   }
 
   return (
-    <div>
+    <div className="customer-page">
       <h1>My Account</h1>
       <p>Name: {customerData.firstName} {customerData.lastName}</p>
       <p>Email: {customerData.emailAddress}</p>
       <p>Phone: {customerData.phoneNumber}</p>
       <p>Date of birth: {formatDate(customerData.dateOfBirth)}</p>
-
     </div>
+
+
   );
 };
 
