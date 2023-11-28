@@ -1,0 +1,36 @@
+.admin-page {
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+}
+.title-div{
+    max-width: 300px;
+    margin: 50px auto;
+
+}
+
+.customer-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.customer-item {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.customer-item p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.customer-item:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}

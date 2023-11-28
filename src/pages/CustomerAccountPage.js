@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import '../styles/CustomerAccountPage.css';
 
 const CustomerAccountPage = () => {
-const [customerData, setCustomerData] = useState(null);
+  const [customerData, setCustomerData] = useState(null);
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const userId = sessionStorage.getItem('userId');
@@ -45,6 +47,7 @@ const [customerData, setCustomerData] = useState(null);
   };
 
   if (!customerData) {
+    // navigate('/login');
     return <div>First log in...</div>;
   }
 

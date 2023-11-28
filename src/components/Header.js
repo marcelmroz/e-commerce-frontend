@@ -30,6 +30,8 @@ const Header = () => {
             </>
           )}
           <Link to="/account" className="nav-link right">My account</Link>
+          <Link to="/admin" className="nav-link right">Admin</Link>
+
         </nav>
       </div>
     </header>
