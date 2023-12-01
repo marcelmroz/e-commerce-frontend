@@ -40,7 +40,6 @@ const AdminPage = () => {
             <div key={index} className="customer-item">
               <p>Name: {customer.firstName} {customer.lastName}</p>
               <p>Email: {customer.emailAddress}</p>
-              <p>Phone: {customer.phoneNumber}</p>
             </div>
           ))}
         </div>
