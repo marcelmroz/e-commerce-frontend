@@ -5,6 +5,10 @@ import '../styles/Header.css';
 const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = sessionStorage.getItem('userToken') !== null;
+  const isAdmin = sessionStorage.getItem('userId') === '33';
+  
+  console.log(sessionStorage.getItem('userId'));
+  console.log(isAdmin);
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -30,7 +34,10 @@ const Header = () => {
             </>
           )}
           <Link to="/account" className="nav-link right">My account</Link>
+          {isAdmin ? (
           <Link to="/admin" className="nav-link right">Admin</Link>
+          ) : null
+          }
 
         </nav>
       </div>
