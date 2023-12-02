@@ -14,7 +14,6 @@ const CustomerDetails = () => {
     <div className="modal">
       <div className="modal-content">
         <span className="modal-message">{message}</span>
-        <button onClick={onClose}>Close</button>
       </div>
     </div>
   );
