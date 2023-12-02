@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/AdminPage.css';
 
 const AdminPage = () => {
@@ -36,15 +37,19 @@ const AdminPage = () => {
       </div>
       <div className="customer-div">
         <div className="customer-list">
-          {customers.map((customer, index) => (
-            <div key={index} className="customer-item">
-              <p>Name: {customer.firstName} {customer.lastName}</p>
-              <p>Email: {customer.emailAddress}</p>
-            </div>
-          ))}
+        {customers.map((customer, index) => (
+          <Link 
+            to={`/customer-details/${customer.id}`} 
+            key={index} 
+            className="customer-item"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <p>Name: {customer.firstName} {customer.lastName}</p>
+            <p>Email: {customer.emailAddress}</p>
+          </Link>
+        ))}
         </div>
       </div>
-      
     </div>
   );
 };

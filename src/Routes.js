@@ -8,6 +8,7 @@ import AdminPage from './pages/AdminPage';
 import CustomerAccountPage from './pages/CustomerAccountPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import CustomerDetails from './pages/CustomerDetail';
 
 const RoutesComponent = () => {
   return (
@@ -20,6 +21,7 @@ const RoutesComponent = () => {
       <Route path="/account" element={<CustomerAccountPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/customer-details/:id" element={<CustomerDetails />} />
     </Routes>
   );
 };
