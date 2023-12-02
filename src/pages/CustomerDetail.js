@@ -1,12 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import '../styles/Customer.css';
+import '../styles/CustomerDetails.css';
 
 const CustomerDetails = () => {
   const [customer, setCustomer] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+
+  const Modal = ({ message, onClose }) => (
+    <div className="modal">
+      <div className="modal-content">
+        <span className="modal-message">{message}</span>
+        <button onClick={onClose}>Close</button>
+      </div>
+    </div>
+  );
+
 
   useEffect(() => {
     const fetchCustomer = async () => {
@@ -23,13 +35,31 @@ const CustomerDetails = () => {
   }, [id]);
 
   const handleDelete = async () => {
-    try {
-      await fetch(`http://localhost:8080/api/customers/${id}`, { method: 'DELETE' });
-      navigate('/admin');
-    } catch (error) {
-      console.error('Error deleting customer:', error);
+    const confirmDelete = window.confirm('Are you sure you want to delete this customer?');
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`http://localhost:8080/api/customers/${id}`, { method: 'DELETE' });
+        if (response.ok) {
+          setModalMessage('Customer deleted successfully.');
+          setShowModal(true);
+          setTimeout(() => {
+            setShowModal(false); 
+            navigate('/admin'); 
+          }, 2000); 
+        } else {
+          throw new Error('Failed to delete customer');
+        }
+      } catch (error) {
+        console.error('Error deleting customer:', error);
+        setModalMessage('There was an error deleting the customer.');
+        setShowModal(true);
+        setTimeout(() => {
+          setShowModal(false); 
+        }, 2000);
+      }
     }
   };
+  
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -112,7 +142,10 @@ const CustomerDetails = () => {
           <button onClick={() => setIsUpdating(false)}>Cancel</button>
         </form>
       )}
+        {showModal && <Modal message={modalMessage} onClose={() => setShowModal(false)} />}
+
     </div>
+    
   );
 };
 
