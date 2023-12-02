@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import '../styles/Customer.css';
 
 const CustomerDetails = () => {
   const [customer, setCustomer] = useState(null);
@@ -65,7 +66,7 @@ const CustomerDetails = () => {
   }
 
   return (
-    <div>
+    <div className="customer-details-container">
       <h1>Customer Details</h1>
       {!isUpdating ? (
         <div>
