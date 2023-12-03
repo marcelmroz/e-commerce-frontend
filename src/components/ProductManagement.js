@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/ProductManagement.css';
+
 
 const ProductManagement = () => {
   const [products, setProducts] = useState([]);
@@ -74,9 +76,10 @@ const ProductManagement = () => {
   }
 
   return (
-    <div>
+    <div className="product-management">
       <h1>Product Management</h1>
-      <form onSubmit={handleSubmit}>
+      <h2>Add a product:</h2>
+      <form onSubmit={handleSubmit} className="product-form">
         <input
           type="text"
           name="name"
@@ -84,14 +87,22 @@ const ProductManagement = () => {
           placeholder="Product Name"
           required
         />
-        {/* Add more input fields for product details here */}
+        <input
+          type="text"
+          name="price"
+          defaultValue={editingProduct?.name || ''}
+          placeholder="Price"
+          required
+        />
         <button type="submit">Save Product</button>
       </form>
-      <div>
+      <h2>Modify existing products:</h2>
+      <div className="product-list">
         {products.map(product => (
-          <div key={product.id}>
+        <div key={product.id} className="product-item">
             <h3>{product.name}</h3>
-            {/* Display more product details here */}
+            <h3>${product.price}</h3>
+            <h3>{product.description}</h3>
             <button onClick={() => startEdit(product)}>Edit</button>
             <button onClick={() => deleteProduct(product.id)}>Delete</button>
           </div>
