@@ -43,8 +43,10 @@ const AdminPage = () => {
     <div className="admin-page">
       <div className="title-div">
         <h1>Admin Dashboard</h1>
-        <button onClick={handleCustomerManagement}>Customer Management</button>
-        <button onClick={handleProductManagement}>Product Management</button>
+        <div className='manage-buttons'>
+        <button className='manage-btn' onClick={handleCustomerManagement}>Customer Management</button>
+        <button className='manage-btn' onClick={handleProductManagement}>Product Management</button>
+        </div>
       </div>
     </div>
   );
