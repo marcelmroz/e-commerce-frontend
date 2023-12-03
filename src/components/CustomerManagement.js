@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../styles/AdminPage.css';
 
-const AdminPage = () => {
+const CustomerManagement = () => {
   const [customers, setCustomers] = useState([]);
-  const navigate = useNavigate();
-
 
   useEffect(() => {
     
@@ -31,23 +29,29 @@ const AdminPage = () => {
     return <div>Loading customer data...</div>;
   }
 
-  const handleCustomerManagement = () => {
-    navigate('/customer-management');
-  };
-
-  const handleProductManagement = () => {
-    navigate('/product-management');
-  };
-
   return (
     <div className="admin-page">
       <div className="title-div">
         <h1>Admin Dashboard</h1>
-        <button onClick={handleCustomerManagement}>Customer Management</button>
-        <button onClick={handleProductManagement}>Product Management</button>
+        <h2>All Customers</h2>
+      </div>
+      <div className="customer-div">
+        <div className="customer-list">
+        {customers.map((customer, index) => (
+          <Link 
+            to={`/customer-details/${customer.id}`} 
+            key={index} 
+            className="customer-item"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <p>Name: {customer.firstName} {customer.lastName}</p>
+            <p>Email: {customer.emailAddress}</p>
+          </Link>
+        ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default AdminPage;
+export default CustomerManagement;

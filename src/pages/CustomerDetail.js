@@ -44,7 +44,7 @@ const CustomerDetails = () => {
           setTimeout(() => {
             setShowModal(false); 
             navigate('/admin'); 
-          }, 2000); 
+          }, 1000); 
         } else {
           throw new Error('Failed to delete customer');
         }
