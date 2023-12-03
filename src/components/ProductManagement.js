@@ -77,8 +77,8 @@ const ProductManagement = () => {
 
   return (
     <div className="product-management">
-      <h1>Product Management</h1>
-      <h2>Add a product:</h2>
+      <h1 className='title-center'>Product Management</h1>
+      <h2 className='title-center'>Add a product:</h2>
       <form onSubmit={handleSubmit} className="product-form">
         <input
           type="text"
@@ -96,7 +96,7 @@ const ProductManagement = () => {
         />
         <button type="submit">Save Product</button>
       </form>
-      <h2>Modify existing products:</h2>
+      <h2 className='title-center'>Modify existing products:</h2>
       <div className="product-list">
         {products.map(product => (
         <div key={product.id} className="product-item">

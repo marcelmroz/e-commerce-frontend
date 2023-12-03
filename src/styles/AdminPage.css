@@ -19,11 +19,10 @@
 
 .title-div{
     max-width: 300px;
-    margin: 50px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    margin: auto;
 }
 
 .customer-list{
