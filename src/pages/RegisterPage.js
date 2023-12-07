@@ -67,7 +67,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-page">
+  <div className="register-page">
+    {!showVerificationModal && (
+      <>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         {/* Username */}
@@ -143,6 +145,8 @@ const RegisterPage = () => {
         {/* Submit Button */}
         <button type="submit">Register</button>
       </form>
+      </>
+      )}
       {showVerificationModal && (
         <div className="verification-modal">
           <div className="modal-content">
