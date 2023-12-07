@@ -13,6 +13,9 @@ const RegisterPage = () => {
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [customerId, setCustomerId] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
 
   const navigate = useNavigate();
 
@@ -56,8 +59,12 @@ const RegisterPage = () => {
       });
 
       if (response.ok) {
-        setShowVerificationModal(false);
-        navigate('/login');
+        setSuccessMessage('Verification successful! You will be redirected to login shortly.');
+        setShowSuccessModal(true);
+        setTimeout(() => {
+          setShowSuccessModal(false);
+          navigate('/login');
+        }, 2000);
       } else {
         alert('Verification failed. Please try again.');
       }
@@ -162,6 +169,14 @@ const RegisterPage = () => {
           </div>
         </div>
       )}
+      {showSuccessModal && (
+      <div className="success-modal">
+        <div className="modal-content">
+          <h3>Success</h3>
+          <p>{successMessage}</p>
+        </div>
+      </div>
+    )}
     </div>
   );
 };
