@@ -10,16 +10,18 @@ const RegisterPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
+
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [customerId, setCustomerId] = useState(null);
+
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
-
-
 
 
   const handleSubmit = async (event) => {
@@ -66,10 +68,13 @@ const RegisterPage = () => {
           navigate('/login');
         }, 2000);
       } else {
-        alert('Verification failed. Please try again.');
+        setErrorMessage('Verification failed. Please try again.');
+        setShowErrorModal(true);
       }
     } catch (error) {
       console.error('Verification error:', error);
+      setErrorMessage('An unexpected error occurred. Please try again.');
+      setShowErrorModal(true);  
     }
   };
 
@@ -169,14 +174,23 @@ const RegisterPage = () => {
           </div>
         </div>
       )}
-      {showSuccessModal && (
-      <div className="success-modal">
-        <div className="modal-content">
-          <h3>Success</h3>
-          <p>{successMessage}</p>
+        {showSuccessModal && (
+        <div className="success-modal">
+          <div className="modal-content">
+            <h3>Success</h3>
+            <p>{successMessage}</p>
+          </div>
         </div>
-      </div>
-    )}
+      )}
+      {showErrorModal && (
+        <div className="error-modal">
+          <div className="modal-content">
+            <h3>Error</h3>
+            <p>{errorMessage}</p>
+            <button onClick={() => setShowErrorModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
