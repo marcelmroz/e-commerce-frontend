@@ -10,7 +10,14 @@ const RegisterPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [verificationCode, setVerificationCode] = useState('');
+  const [customerId, setCustomerId] = useState(null);
+
   const navigate = useNavigate();
+
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,11 +37,32 @@ const RegisterPage = () => {
           dateOfBirth
         }),
       });
-      const data = await response.json();
-      console.log('Register response:', data);
-      navigate('/login'); // Redirect to login after successful registration
+      if (response.ok) {
+        const data = await response.json();
+        setCustomerId(data.id);
+        setShowVerificationModal(true);
+      } else {
+        console.error('Registration failed:', await response.text());
+      }
     } catch (error) {
       console.error('Registration failed:', error);
+    }
+  };
+
+  const handleVerification = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/customers/verify?customerId=${customerId}&verificationCode=${verificationCode}`, {
+        method: 'POST'
+      });
+
+      if (response.ok) {
+        setShowVerificationModal(false);
+        navigate('/login');
+      } else {
+        alert('Verification failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Verification error:', error);
     }
   };
 
@@ -115,6 +143,21 @@ const RegisterPage = () => {
         {/* Submit Button */}
         <button type="submit">Register</button>
       </form>
+      {showVerificationModal && (
+        <div className="verification-modal">
+          <div className="modal-content">
+            <h3>Verify Your Account</h3>
+            <input
+              type="text"
+              placeholder="Enter verification code"
+              value={verificationCode}
+              onChange={(e) => setVerificationCode(e.target.value)}
+            />
+            <button onClick={handleVerification}>Verify</button>
+            <button onClick={() => setShowVerificationModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
