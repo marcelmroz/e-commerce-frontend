@@ -5,7 +5,7 @@ import '../styles/ProductManagement.css';
 const ProductManagement = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [editingProduct, setEditingProduct] = useState(null); // State to manage the product being edited
+  const [editingProduct, setEditingProduct] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -21,20 +21,17 @@ const ProductManagement = () => {
       });
   }, []);
 
-  // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const productData = {
       name: formData.get('name'),
-      // Include other product fields here
     };
     saveProduct(productData, editingProduct?.id);
-    setEditingProduct(null); // Reset editing product
-    event.target.reset(); // Reset form
+    setEditingProduct(null); 
+    event.target.reset();
   };
 
-  // Add or update a product
   const saveProduct = (product, id) => {
     const method = id ? 'PUT' : 'POST';
     const url = `http://localhost:8080/api/products${id ? `/${id}` : ''}`;
@@ -55,7 +52,6 @@ const ProductManagement = () => {
       .catch(error => console.error('Error saving product:', error));
   };
 
-  // Delete a product
   const deleteProduct = (id) => {
     fetch(`http://localhost:8080/api/products/${id}`, {
       method: 'DELETE',
@@ -66,7 +62,6 @@ const ProductManagement = () => {
       .catch(error => console.error('Error deleting product:', error));
   };
 
-  // Function to initiate editing a product
   const startEdit = (product) => {
     setEditingProduct(product);
   };

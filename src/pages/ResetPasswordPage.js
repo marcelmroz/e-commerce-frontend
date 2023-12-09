@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import '../styles/ResetPasswordPage.css';
+
 
 const ResetPasswordPage = () => {
     const [tempPassword, setTempPassword] = useState('');
@@ -90,7 +92,7 @@ const ResetPasswordPage = () => {
         {popupMessage && <div className="popup-message">{popupMessage}</div>}
         {!showNewPasswordForm ? (
             <>
-                <form onSubmit={handleTempPasswordSubmit}>
+                <form className='form' onSubmit={handleTempPasswordSubmit}>
                     <h2>Enter Temporary Password</h2>
                     <input
                         type="email"
@@ -98,6 +100,8 @@ const ResetPasswordPage = () => {
                         value={emailAddress}
                         onChange={(e) => setEmailAddress(e.target.value)}
                     />
+                    <button onClick={handleSendTempPasswordEmail}>Send Temporary Password Email</button>
+
                     <input
                         type="password"
                         placeholder="Temporary Password"
@@ -106,7 +110,6 @@ const ResetPasswordPage = () => {
                     />
                     <button type="submit">Submit</button>
                 </form>
-                <button onClick={handleSendTempPasswordEmail}>Send Temporary Password Email</button>
             </>
         ) : (
             <form onSubmit={handleNewPasswordSubmit}>
