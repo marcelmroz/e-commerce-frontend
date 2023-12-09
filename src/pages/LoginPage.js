@@ -45,6 +45,19 @@ const LoginPage = () => {
     }
   };
 
+  const handleForgotPassword = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/customers/forgot-password?emailAddress=${emailAddress}`, {
+        method: 'POST'
+      });
+      const message = await response.text();
+      setPopupMessage(message);
+      setTimeout(() => setPopupMessage(''), 5000);
+    } catch (error) {
+      console.error('Forgot Password error:', error);
+    }
+  };
+
   return (
     <div className="login-page">
       {popupMessage && <div className={`login-popup ${popupMessage.includes('Invalid') ? 'error' : ''}`}>
@@ -72,6 +85,7 @@ const LoginPage = () => {
         </div>
         <button type="submit">Log In</button>
       </form>
+      <button onClick={handleForgotPassword}>I forgot my password</button>
     </div>
   );
 };
