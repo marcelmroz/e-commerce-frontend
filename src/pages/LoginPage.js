@@ -5,7 +5,7 @@ import '../styles/LoginPage.css';
 const LoginPage = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
-  const [popupMessage, setPopupMessage] = useState(''); // popup for both success and error
+  const [popupMessage, setPopupMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -46,16 +46,7 @@ const LoginPage = () => {
   };
 
   const handleForgotPassword = async () => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/customers/forgot-password?emailAddress=${emailAddress}`, {
-        method: 'POST'
-      });
-      const message = await response.text();
-      setPopupMessage(message);
-      setTimeout(() => setPopupMessage(''), 5000);
-    } catch (error) {
-      console.error('Forgot Password error:', error);
-    }
+    navigate('/reset-password', { state: { emailAddress } });
   };
 
   return (

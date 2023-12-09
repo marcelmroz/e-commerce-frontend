@@ -11,6 +11,7 @@ import RegisterPage from './pages/RegisterPage';
 import CustomerDetails from './pages/CustomerDetail';
 import CustomerManagement from './components/CustomerManagement';
 import ProductManagement from './components/ProductManagement';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 const RoutesComponent = () => {
   return (
@@ -26,6 +27,7 @@ const RoutesComponent = () => {
       <Route path="/customer-details/:id" element={<CustomerDetails />} />
       <Route path="/customer-management" element={<CustomerManagement />} />
       <Route path="/product-management" element={<ProductManagement />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
 
     </Routes>
   );
