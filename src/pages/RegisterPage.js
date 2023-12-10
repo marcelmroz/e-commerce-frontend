@@ -46,11 +46,20 @@ const RegisterPage = () => {
         const data = await response.json();
         setCustomerId(data.id);
         setShowVerificationModal(true);
+      } else if (response.status === 409) {
+        const errorText = await response.text();
+        setErrorMessage(errorText || "An account with this email address already exists.");
+        setShowErrorModal(true);
       } else {
-        console.error('Registration failed:', await response.text());
+        const errorText = await response.text();
+        console.error('Registration failed:', errorText);
+        setErrorMessage("Failed to register. Please try again.");
+        setShowErrorModal(true);
       }
     } catch (error) {
       console.error('Registration failed:', error);
+      setErrorMessage("An unexpected error occurred. Please try again.");
+      setShowErrorModal(true);
     }
   };
 
@@ -80,6 +89,15 @@ const RegisterPage = () => {
 
   return (
   <div className="register-page">
+    {showErrorModal && (
+        <div className="error-modal">
+          <div className="modal-content">
+            <h3>Error</h3>
+            <p>{errorMessage}</p>
+            <button onClick={() => setShowErrorModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
     {!showVerificationModal && (
       <>
       <h2>Register</h2>
@@ -182,15 +200,7 @@ const RegisterPage = () => {
           </div>
         </div>
       )}
-      {showErrorModal && (
-        <div className="error-modal">
-          <div className="modal-content">
-            <h3>Error</h3>
-            <p>{errorMessage}</p>
-            <button onClick={() => setShowErrorModal(false)}>Close</button>
-          </div>
-        </div>
-      )}
+      
     </div>
   );
 };
