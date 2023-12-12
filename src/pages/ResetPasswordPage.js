@@ -4,13 +4,14 @@ import '../styles/ResetPasswordPage.css';
 
 
 const ResetPasswordPage = () => {
-    const [tempPassword, setTempPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [emailAddress, setEmailAddress] = useState('');
-    const [showNewPasswordForm, setShowNewPasswordForm] = useState(false);
-    const [popupMessage, setPopupMessage] = useState('');
-    const navigate = useNavigate();
-    const location = useLocation();
+  const [tempPassword, setTempPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
+  const [showNewPasswordForm, setShowNewPasswordForm] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
     useEffect(() => {
         if (location.state?.emailAddress) {
@@ -65,6 +66,12 @@ const ResetPasswordPage = () => {
 
   const handleNewPasswordSubmit = async (event) => {
     event.preventDefault();
+
+    if (newPassword !== confirmNewPassword) {
+      setPopupMessage('Passwords do not match.');
+      return;
+  }
+
     try {
       const response = await fetch('http://localhost:8080/api/customers/update-password', {
         method: 'POST',
@@ -84,6 +91,7 @@ const ResetPasswordPage = () => {
       }
     } catch (error) {
       console.error('Password update failed:', error);
+      setPopupMessage('Error updating password.');
     }
   };
 
@@ -112,16 +120,22 @@ const ResetPasswordPage = () => {
                 </form>
             </>
         ) : (
-            <form onSubmit={handleNewPasswordSubmit}>
-                <h2>Set New Password</h2>
-                <input
-                    type="password"
-                    placeholder="New Password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <button type="submit">Update Password</button>
-            </form>
+          <form onSubmit={handleNewPasswordSubmit}>
+          <h2>Set New Password</h2>
+          <input
+              type="password"
+              placeholder="New Password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <input
+              type="password"
+              placeholder="Confirm New Password"
+              value={confirmNewPassword}
+              onChange={(e) => setConfirmNewPassword(e.target.value)}
+          />
+          <button type="submit">Update Password</button>
+      </form>
         )}
     </div>
     );

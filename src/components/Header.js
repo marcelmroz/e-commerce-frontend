@@ -5,7 +5,7 @@ import '../styles/Header.css';
 const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = sessionStorage.getItem('userToken') !== null;
-  const isAdmin = sessionStorage.getItem('userId') === '33';
+  const isAdmin = sessionStorage.getItem('userId') === '58';
 
   const handleLogout = () => {
     sessionStorage.clear();
