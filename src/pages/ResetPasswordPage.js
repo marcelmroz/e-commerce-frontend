@@ -26,6 +26,7 @@ const ResetPasswordPage = () => {
             method: 'POST'
         });
         if (response.ok) {
+          console.log("sent email with temp pass");
             setPopupMessage('Temporary password email sent successfully.');
         } else {
             setPopupMessage('Failed to send temporary password email.');
@@ -120,7 +121,7 @@ const ResetPasswordPage = () => {
                 </form>
             </>
         ) : (
-          <form onSubmit={handleNewPasswordSubmit}>
+          <form className='form' onSubmit={handleNewPasswordSubmit}>
           <h2>Set New Password</h2>
           <input
               type="password"
