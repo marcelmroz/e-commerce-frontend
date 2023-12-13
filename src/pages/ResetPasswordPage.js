@@ -6,7 +6,7 @@ import '../styles/ResetPasswordPage.css';
 const ResetPasswordPage = () => {
   const [tempPassword, setTempPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [confirmPassword, setConfirmNewPassword] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
   const [showNewPasswordForm, setShowNewPasswordForm] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
@@ -68,10 +68,10 @@ const ResetPasswordPage = () => {
   const handleNewPasswordSubmit = async (event) => {
     event.preventDefault();
 
-    if (newPassword !== confirmNewPassword) {
+    if (newPassword !== confirmPassword) {
       setPopupMessage('Passwords do not match.');
       return;
-  }
+    }
 
     try {
       const response = await fetch('http://localhost:8080/api/customers/update-password', {
@@ -82,8 +82,10 @@ const ResetPasswordPage = () => {
         body: JSON.stringify({
           emailAddress,
           newPassword,
+          confirmPassword,
         }),
       });
+      console.log(response);
 
       if (response.ok) {
         navigate('/login');
@@ -132,7 +134,7 @@ const ResetPasswordPage = () => {
           <input
               type="password"
               placeholder="Confirm New Password"
-              value={confirmNewPassword}
+              value={confirmPassword}
               onChange={(e) => setConfirmNewPassword(e.target.value)}
           />
           <button type="submit">Update Password</button>
