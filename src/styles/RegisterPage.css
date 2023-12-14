@@ -99,10 +99,8 @@ button {
 .modal-content {
   width: 200px;
   background-color: #fff;
-  /* color: red; */
   padding: 20px;
   border-radius: 5px;
   z-index: 11;
   border: solid;
-  /* border-color: red; */
 }
