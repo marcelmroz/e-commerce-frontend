@@ -13,7 +13,7 @@ const LoginPage = () => {
     setPopupMessage('');
 
     try {
-      const response = await fetch('http://localhost:8080/api/customers/login', {
+      const response = await fetch('http://localhost:8080/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,9 +28,8 @@ const LoginPage = () => {
         throw new Error('Invalid email or password');
       }
 
-      const { userId, token } = await response.json();
-      sessionStorage.setItem('userId', userId);
-      sessionStorage.setItem('userToken', token);
+      const { access_token, refresh_token } = await response.json();
+      sessionStorage.setItem('userToken', access_token);
 
       setPopupMessage('User logged in successfully!');
       setTimeout(() => {

@@ -27,7 +27,7 @@ const RegisterPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/customers', {
+      const response = await fetch('http://localhost:8080/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,8 +43,8 @@ const RegisterPage = () => {
         }),
       });
       if (response.ok) {
-        const data = await response.json();
-        setCustomerId(data.id);
+        //const data = await response.json();
+        //setCustomerId(data.id);
         setShowVerificationModal(true);
       } else if (response.status === 409) {
         const errorText = await response.text();
@@ -65,8 +65,8 @@ const RegisterPage = () => {
 
   const handleVerification = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/customers/verify?customerId=${customerId}&verificationCode=${verificationCode}`, {
-        method: 'POST'
+      const response = await fetch(`http://localhost:8080/api/auth/verify?id=${customerId}&code=${verificationCode}`, {
+        method: 'GET'
       });
 
       if (response.ok) {

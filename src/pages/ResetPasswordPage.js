@@ -22,8 +22,15 @@ const ResetPasswordPage = () => {
 
     const handleSendTempPasswordEmail = async () => {
     try {
-        const response = await fetch(`http://localhost:8080/api/customers/forgot-password?emailAddress=${emailAddress}`, {
-            method: 'POST'
+        const response = await fetch(`http://localhost:8080/api/auth/forgot-password`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            emailAddress: emailAddress,
+            password: "",
+          }),
         });
         if (response.ok) {
           console.log("sent email with temp pass");
@@ -41,14 +48,14 @@ const ResetPasswordPage = () => {
   const handleTempPasswordSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/customers/verify-temp-password', {
+      const response = await fetch('http://localhost:8080/api/auth/verify-temp-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           emailAddress,
-          tempPassword,
+          "password": tempPassword,
         }),
       });
 
@@ -74,8 +81,8 @@ const ResetPasswordPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/customers/update-password', {
-        method: 'POST',
+      const response = await fetch('http://localhost:8080/api/auth/reset-password', {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -83,6 +90,7 @@ const ResetPasswordPage = () => {
           emailAddress,
           newPassword,
           confirmPassword,
+          "token": tempPassword,
         }),
       });
       console.log(response);

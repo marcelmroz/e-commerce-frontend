@@ -20,9 +20,20 @@ const CustomerDetails = () => {
 
 
   useEffect(() => {
+    const token = sessionStorage.getItem('userToken');
+
+    if (!token) {
+      console.log('No token found, redirecting to login');
+      return;
+    }
     const fetchCustomer = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/customers/${id}`);
+        const response = await fetch(`http://localhost:8080/api/customers`,{
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         const data = await response.json();
         setCustomer(data);
       } catch (error) {

@@ -6,10 +6,21 @@ const CustomerManagement = () => {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
+    const token = sessionStorage.getItem('userToken');
+
+    if (!token) {
+      console.log('No token found, redirecting to login');
+      return;
+    }
     
     const fetchAllCustomers = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/customers/admin/customers`);
+        const response = await fetch(`http://localhost:8080/api/admin/customers`,{
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+        }
+        });
 
         if (!response.ok) {
           throw new Error('Failed to fetch customer data');
@@ -45,7 +56,7 @@ const CustomerManagement = () => {
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
             <p>Name: {customer.firstName} {customer.lastName}</p>
-            <p>Email: {customer.emailAddress}</p>
+            <p>Email: {customer.email}</p>
           </Link>
         ))}
         </div>

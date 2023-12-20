@@ -8,10 +8,21 @@ const AdminPage = () => {
 
 
   useEffect(() => {
+    const token = sessionStorage.getItem('userToken');
+
+    if (!token) {
+      console.log('No token found, redirecting to login');
+      return;
+    }
     
     const fetchAllCustomers = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/customers/admin/customers`);
+        const response = await fetch(`http://localhost:8080/api/admin/customers`,{
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`
+        }
+      });
 
         if (!response.ok) {
           throw new Error('Failed to fetch customer data');

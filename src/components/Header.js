@@ -16,7 +16,7 @@ const Header = () => {
     <header className="site-header">
       <div className="header-content">
         <Link to="/" className="logo">
-          <h1>Our E-Commerce</h1>
+          <h1>My E-Commerce</h1>
         </Link>
         <nav className="navigation">
           <Link to="/" className="nav-link">Home</Link>
