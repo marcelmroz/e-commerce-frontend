@@ -1,5 +1,6 @@
 .product-list-page {
     padding: 20px;
+    text-align: center;
   }
   
   .product-list {
@@ -13,7 +14,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 16px;
-    width: 300px;
+    width: 200px;
     text-align: center;
   }
   
@@ -36,4 +37,3 @@
     display: inline-block;
     margin-top: 12px;
   }
-  
