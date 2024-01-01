@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 // import { useNavigate } from 'react-router-dom';
 import '../styles/CustomerAccountPage.css';
 
@@ -46,8 +48,13 @@ const CustomerAccountPage = () => {
   };
 
   if (!customerData) {
-    // navigate('/login');
-    return <div>First log in...</div>;
+    return (
+      <div className='main'>
+        <h2 className='first-log'>First log in...</h2>
+        <Link to="/login" className="btn btn-primary">Go To Login Page</Link>
+      </div>
+
+    );
   }
 
   return (
