@@ -11,15 +11,13 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
 
-  const [showVerificationModal, setShowVerificationModal] = useState(false);
-  const [verificationCode, setVerificationCode] = useState('');
-  const [customerId, setCustomerId] = useState(null);
-
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('Registration successful! Check your email for the activation link.');
 
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+
 
   const navigate = useNavigate();
 
@@ -43,9 +41,11 @@ const RegisterPage = () => {
         }),
       });
       if (response.ok) {
-        //const data = await response.json();
-        //setCustomerId(data.id);
-        setShowVerificationModal(true);
+        setSuccessMessage('Registration successful! Check your email for the activation link.');
+        setShowSuccessModal(true);
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);      
       } else if (response.status === 409) {
         const errorText = await response.text();
         setErrorMessage(errorText || "An account with this email address already exists.");
@@ -63,30 +63,6 @@ const RegisterPage = () => {
     }
   };
 
-  const handleVerification = async () => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/auth/verify?id=${customerId}&code=${verificationCode}`, {
-        method: 'GET'
-      });
-
-      if (response.ok) {
-        setSuccessMessage('Verification successful! You will be redirected to login shortly.');
-        setShowSuccessModal(true);
-        setTimeout(() => {
-          setShowSuccessModal(false);
-          navigate('/login');
-        }, 2000);
-      } else {
-        setErrorMessage('Verification failed. Please try again.');
-        setShowErrorModal(true);
-      }
-    } catch (error) {
-      console.error('Verification error:', error);
-      setErrorMessage('An unexpected error occurred. Please try again.');
-      setShowErrorModal(true);  
-    }
-  };
-
   return (
   <div className="register-page">
     {showErrorModal && (
@@ -98,7 +74,7 @@ const RegisterPage = () => {
           </div>
         </div>
       )}
-    {!showVerificationModal && (
+    { (
       <>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
@@ -176,21 +152,6 @@ const RegisterPage = () => {
         <button type="submit">Register</button>
       </form>
       </>
-      )}
-      {showVerificationModal && (
-        <div className="verification-modal">
-          <div className="modal-content">
-            <h3>Verify Your Account</h3>
-            <input
-              type="text"
-              placeholder="Enter verification code"
-              value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
-            />
-            <button onClick={handleVerification}>Verify</button>
-            <button onClick={() => setShowVerificationModal(false)}>Cancel</button>
-          </div>
-        </div>
       )}
         {showSuccessModal && (
         <div className="success-modal">
