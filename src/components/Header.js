@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 
@@ -6,7 +6,21 @@ const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = sessionStorage.getItem('userToken') !== null;
   const isAdmin = sessionStorage.getItem('userId') === '58';
-  const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+  // const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const updateCartCount = () => {
+      const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+      setCartCount(cart.length);
+    };
+    updateCartCount();
+    window.addEventListener('cartUpdated', updateCartCount);
+    return () => {
+      window.removeEventListener('cartUpdated', updateCartCount);
+    };
+  }, []);
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -36,7 +50,7 @@ const Header = () => {
           <Link to="/admin" className="nav-link right">Admin</Link>
           ) : null
           }
-      <Link to="/cart" className="nav-link">My Cart ({cart.length})</Link>
+      <Link to="/cart" className="nav-link">My Cart ({cartCount})</Link>
 
         </nav>
       </div>

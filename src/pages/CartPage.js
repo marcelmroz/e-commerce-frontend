@@ -4,18 +4,20 @@ import '../styles/CartPage.css';
 const CartPage = () => {
 const [cartItems, setCartItems] = useState([]);
 
-  useEffect(() => {
-    const storedCart = JSON.parse(sessionStorage.getItem('cart')) || [];
-    const updatedCart = storedCart.map(item => ({
-      ...item,
-      totalPrice: item.quantity * item.price,
-    }));
-    setCartItems(updatedCart);
-  }, []);
+useEffect(() => {
+  const storedCart = JSON.parse(sessionStorage.getItem('cart')) || [];
+  const updatedCart = storedCart.map(item => ({
+    ...item,
+    quantity: item.quantity || 1,
+    totalPrice: item.totalPrice || item.price,
+  }));
+  setCartItems(updatedCart);
+}, []);
 
   const updateCart = (updatedCart) => {
     setCartItems(updatedCart);
     sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+    window.dispatchEvent(new Event('cartUpdated'));
   };
 
   const incrementQuantity = (id) => {
@@ -43,12 +45,14 @@ const [cartItems, setCartItems] = useState([]);
   const deleteItem = (id) => {
     const updatedCart = cartItems.filter(item => item.id !== id);
     updateCart(updatedCart);
+    window.dispatchEvent(new Event('cartUpdated'));
   };
 
   const handleCheckout = () => {
     console.log('Proceeding to checkout', cartItems);
     sessionStorage.removeItem('cart');
     setCartItems([]);
+    window.dispatchEvent(new Event('cartUpdated'));
   };
 
   const calculateTotal = () => {

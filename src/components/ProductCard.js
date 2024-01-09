@@ -1,12 +1,24 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const addToCart = () => {
+  const addItemToCart = () => {
     const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-    const updatedCart = [...cart, product];
-    sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+    const existingItem = cart.find(item => item.id === product.id);
+    if (existingItem) {
+      existingItem.quantity++;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+        totalPrice: product.price
+      });
+    }
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event('cartUpdated'));
   };
 
 
@@ -18,7 +30,7 @@ const ProductCard = ({ product }) => {
         <p>{product.description}</p>
         <div className="product-price">${product.price}</div>
         <Link to={`/products/${product.id}`} className="product-details-button">View Details</Link>
-        <button onClick={addToCart}>Add to Cart</button>
+        <button onClick={addItemToCart}>Add to Cart</button>
       </div>
     </div>
   );
