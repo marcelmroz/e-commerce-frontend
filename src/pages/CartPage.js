@@ -3,6 +3,8 @@ import '../styles/CartPage.css';
 
 const CartPage = () => {
 const [cartItems, setCartItems] = useState([]);
+const [showCheckoutPopup, setShowCheckoutPopup] = useState(false);
+
 
 useEffect(() => {
   const storedCart = JSON.parse(sessionStorage.getItem('cart')) || [];
@@ -53,7 +55,16 @@ useEffect(() => {
     sessionStorage.removeItem('cart');
     setCartItems([]);
     window.dispatchEvent(new Event('cartUpdated'));
+  
+    setShowCheckoutPopup(true); 
+    setTimeout(() => setShowCheckoutPopup(false), 5000);
   };
+
+  const CheckoutPopup = () => (
+    <div className="checkout-popup">
+      Order received! Thank you for your purchase.
+    </div>
+  );
 
   const calculateTotal = () => {
     return cartItems.reduce((acc, item) => acc + item.totalPrice, 0).toFixed(2);
@@ -85,6 +96,7 @@ useEffect(() => {
           <button onClick={handleCheckout} className="checkout-btn">Checkout</button>
         </div>
       )}
+      {showCheckoutPopup && <CheckoutPopup />}
     </div>
   );
 };

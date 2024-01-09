@@ -6,7 +6,6 @@ const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = sessionStorage.getItem('userToken') !== null;
   const isAdmin = sessionStorage.getItem('userId') === '58';
-  // const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
 
   const [cartCount, setCartCount] = useState(0);
 
