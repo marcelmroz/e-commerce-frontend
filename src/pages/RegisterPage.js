@@ -45,7 +45,7 @@ const RegisterPage = () => {
         setShowSuccessModal(true);
         setTimeout(() => {
           navigate('/login');
-        }, 3000);      
+        }, 5000);      
       } else if (response.status === 409) {
         const errorText = await response.text();
         setErrorMessage(errorText || "An account with this email address already exists.");

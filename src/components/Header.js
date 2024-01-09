@@ -35,6 +35,7 @@ const Header = () => {
           <Link to="/admin" className="nav-link right">Admin</Link>
           ) : null
           }
+          <Link to="/cart" className="nav-link">My Cart</Link>
 
         </nav>
       </div>
