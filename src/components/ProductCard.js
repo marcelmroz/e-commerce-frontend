@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
         <p>{product.description}</p>
         <div className="product-price">${product.price}</div>
         <Link to={`/products/${product.id}`} className="product-details-button">View Details</Link>
-        <button onClick={addItemToCart}>Add to Cart</button>
+        <button className='add-to-cart' onClick={addItemToCart}>Add to Cart</button>
       </div>
     </div>
   );
