@@ -13,6 +13,7 @@ import CustomerManagement from './components/CustomerManagement';
 import ProductManagement from './components/ProductManagement';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 
+
 const RoutesComponent = () => {
   return (
     <Routes>
@@ -30,6 +31,7 @@ const RoutesComponent = () => {
       <Route path="/reset-password" element={<ResetPasswordPage />} />
 
     </Routes>
+
   );
 };
 

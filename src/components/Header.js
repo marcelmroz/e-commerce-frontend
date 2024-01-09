@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext }  from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 
@@ -6,6 +6,7 @@ const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = sessionStorage.getItem('userToken') !== null;
   const isAdmin = sessionStorage.getItem('userId') === '58';
+  const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -35,7 +36,7 @@ const Header = () => {
           <Link to="/admin" className="nav-link right">Admin</Link>
           ) : null
           }
-          <Link to="/cart" className="nav-link">My Cart</Link>
+      <Link to="/cart" className="nav-link">My Cart ({cart.length})</Link>
 
         </nav>
       </div>
