@@ -61,7 +61,7 @@ const CustomerAccountPage = () => {
     <div className="customer-page">
       <h1>My Account</h1>
       <p>Name: {customerData.firstName} {customerData.lastName}</p>
-      <p>Email: {customerData.emailAddress}</p>
+      <p>Email: {customerData.email}</p>
       <p>Phone: {customerData.phoneNumber}</p>
       <p>Date of birth: {formatDate(customerData.dateOfBirth)}</p>
     </div>

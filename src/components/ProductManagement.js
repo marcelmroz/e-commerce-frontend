@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/ProductManagement.css';
 
-
 const ProductManagement = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -26,6 +25,7 @@ const ProductManagement = () => {
     const formData = new FormData(event.target);
     const productData = {
       name: formData.get('name'),
+      price: formData.get('price')
     };
     saveProduct(productData, editingProduct?.id);
     setEditingProduct(null); 
@@ -84,9 +84,9 @@ const ProductManagement = () => {
             required
           />
           <input
-            type="text"
+            type="number"
             name="price"
-            defaultValue={editingProduct?.name || ''}
+            defaultValue={editingProduct?.price || ''}
             placeholder="Price"
             required
           />
