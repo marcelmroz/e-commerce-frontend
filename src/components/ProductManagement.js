@@ -25,10 +25,15 @@ const ProductManagement = () => {
     const formData = new FormData(event.target);
     const productData = {
       name: formData.get('name'),
-      price: formData.get('price')
+      description: formData.get('description'),
+      price: formData.get('price'),
+      color: formData.get('color'),
+      category: formData.get('category'),
+      size: formData.get('size'),
+      stockQuantity: formData.get('stockQuantity'),
     };
     saveProduct(productData, editingProduct?.id);
-    setEditingProduct(null); 
+    setEditingProduct(null);
     event.target.reset();
   };
 
@@ -72,22 +77,54 @@ const ProductManagement = () => {
 
   return (
     <div className="product-management">
-      <h1 className='title-center'>Product Management</h1>
-      <div className='add-product'>
-        <h2 className='title-center'>Add a product:</h2>
-        <form onSubmit={handleSubmit} className="product-form">
+    <h1 className='title-center'>Product Management</h1>
+    <div className='add-product'>
+      <h2 className='title-center'>Add a product:</h2>
+      <form onSubmit={handleSubmit} className="product-form">
+        <input
+          type="text"
+          name="name"
+          defaultValue={editingProduct?.name || ''}
+          placeholder="Product Name"
+          required
+        />
+        <input
+          type="number"
+          name="price"
+          defaultValue={editingProduct?.price || ''}
+          placeholder="Price"
+          required
+        />
           <input
             type="text"
-            name="name"
-            defaultValue={editingProduct?.name || ''}
-            placeholder="Product Name"
+            name="description"
+            defaultValue={editingProduct?.description || ''}
+            placeholder="Description"
             required
           />
           <input
+            type="text"
+            name="color"
+            defaultValue={editingProduct?.color || ''}
+            placeholder="Color"
+          />
+          <input
+            type="text"
+            name="category"
+            defaultValue={editingProduct?.category || ''}
+            placeholder="Category"
+          />
+          <input
+            type="text"
+            name="size"
+            defaultValue={editingProduct?.size || ''}
+            placeholder="Size"
+          />
+          <input
             type="number"
-            name="price"
-            defaultValue={editingProduct?.price || ''}
-            placeholder="Price"
+            name="stockQuantity"
+            defaultValue={editingProduct?.stockQuantity || ''}
+            placeholder="Stock Quantity"
             required
           />
           <button type="submit">Save Product</button>
