@@ -94,6 +94,7 @@ const ProductManagement = () => {
           defaultValue={editingProduct?.price || ''}
           placeholder="Price"
           required
+          min="0"
         />
           <input
             type="text"
@@ -126,6 +127,7 @@ const ProductManagement = () => {
             defaultValue={editingProduct?.stockQuantity || ''}
             placeholder="Stock Quantity"
             required
+            min="0"
           />
           <button type="submit">Save Product</button>
         </form>
