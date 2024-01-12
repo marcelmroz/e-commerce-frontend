@@ -95,6 +95,7 @@ const ProductManagement = () => {
           placeholder="Price"
           required
           min="0"
+          step=".01"
         />
           <input
             type="text"
