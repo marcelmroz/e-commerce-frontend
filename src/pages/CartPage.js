@@ -50,15 +50,43 @@ useEffect(() => {
     window.dispatchEvent(new Event('cartUpdated'));
   };
 
-  const handleCheckout = () => {
-    console.log('Proceeding to checkout', cartItems);
-    sessionStorage.removeItem('cart');
-    setCartItems([]);
-    window.dispatchEvent(new Event('cartUpdated'));
-  
-    setShowCheckoutPopup(true); 
-    setTimeout(() => setShowCheckoutPopup(false), 5000);
-  };
+  const handleCheckout = async () => {
+    const cartData = {
+        items: cartItems.map(item => ({
+            productId: item.id,
+            quantity: item.quantity,
+            price: item.price,
+            totalPrice: item.totalPrice
+        })),
+        totalPrice: calculateTotal()
+    };
+
+    try {
+        const response = await fetch('http://localhost:8080/api/cart/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${sessionStorage.getItem('userToken')}`
+            },
+            body: JSON.stringify(cartData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const responseData = await response.text();
+        console.log('Checkout response:', responseData);
+        sessionStorage.removeItem('cart');
+        setCartItems([]);
+        setShowCheckoutPopup(true);
+        window.dispatchEvent(new Event('cartUpdated'));
+        setTimeout(() => setShowCheckoutPopup(false), 5000);
+    } catch (error) {
+        console.error('Checkout error:', error);
+    }
+};
+
 
   const CheckoutPopup = () => (
     <div className="checkout-popup">
