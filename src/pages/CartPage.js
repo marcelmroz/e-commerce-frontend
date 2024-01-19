@@ -61,7 +61,6 @@ useEffect(() => {
             totalPrice: item.totalPrice
         })),
         totalPrice: calculateTotal(),
-        email: isAuthenticated ? null : email // Include email if user is not authenticated
     };
 
     try {
@@ -121,16 +120,6 @@ useEffect(() => {
               <button onClick={() => deleteItem(item.id)}>Remove</button>
             </div>
           ))}
-          {!isAuthenticated && (
-                <div>
-                    <input 
-                        type="email" 
-                        placeholder="Enter your email" 
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
-                    />
-                </div>
-            )}
           <div className="cart-total">
           <h2>Total: ${calculateTotal()}</h2>
           </div>
