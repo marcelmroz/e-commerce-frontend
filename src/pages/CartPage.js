@@ -4,6 +4,8 @@ import '../styles/CartPage.css';
 const CartPage = () => {
 const [cartItems, setCartItems] = useState([]);
 const [showCheckoutPopup, setShowCheckoutPopup] = useState(false);
+const isUserLoggedIn = !!sessionStorage.getItem('userToken');
+
 
 
 useEffect(() => {
@@ -119,9 +121,21 @@ useEffect(() => {
             </div>
           ))}
           <div className="cart-total">
-            <h2>Total: ${calculateTotal()}</h2>
+          <h2>Total: ${calculateTotal()}</h2>
           </div>
-          <button onClick={handleCheckout} className="checkout-btn">Checkout</button>
+
+          {!isUserLoggedIn && (
+            <p className="login-message">Please log in order to checkout.</p>
+          )}
+
+          <button 
+            onClick={handleCheckout} 
+            className="checkout-btn"
+            disabled={!isUserLoggedIn} 
+            style={{ backgroundColor: isUserLoggedIn ? '' : 'grey' }} 
+          >
+            Checkout
+          </button>
         </div>
       )}
       {showCheckoutPopup && <CheckoutPopup />}
